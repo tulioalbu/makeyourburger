@@ -22,7 +22,7 @@
         </select>
       </div>
       <div id="opcionais-container" class="input-container">
-        <label id="opcionais-title" for="opcionais">Selecione os opcionais</label>
+        <label id="opcionais-title" for="opcionais">Selecione os opcionais: </label>
         <div class="checkbox-container">
           <input type="checkbox" name="opcionais" v-model="opcionais" value="salame">
           <span>Salame</span>
