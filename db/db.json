@@ -77,5 +77,16 @@
       "tipo": "Finalizado"
     }
   ],
-  "burgers": []
+  "burgers": [
+    {
+      "nome": "erwerrwe",
+      "carne": "Alcatra",
+      "pao": "Parmesão e Orégano",
+      "opcionais": [
+        "Salame"
+      ],
+      "status": "Solicitado",
+      "id": 1
+    }
+  ]
 }

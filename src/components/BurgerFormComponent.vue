@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="form-component">
+    <form id="burger-form-component" @submit="createBurger">
       <div class="input-container">
         <label for="nome">Nome do Cliente: </label>
         <input type="text" id="nome" name="nome" v-model="nome" placeholder="Digite o seu nome">
@@ -22,17 +22,14 @@
         </select>
       </div>
       <div id="opcionais-container" class="input-container">
-        <label id="opcionais-title" for="opcionais">Selecione os opcionais: </label>
-        <div class="checkbox-container">
-          <input type="checkbox" name="opcionais" v-model="opcionais" value="salame">
-          <span>Salame</span>
-        </div>
+        <label id="opcionais-title" for="opcionais">Selecione os opcionais:</label>
         <div class="checkbox-container" v-for="opcional in opcionaisdata" :key="opcional.id">
           <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional.tipo">
-          <span>{{opcional.tipo}}</span>
+          <span>{{ opcional.tipo }}</span>
         </div>
-    
-    
+      </div>
+      <div class="input-container">
+        <input type="submit" class="submit-btn" value="Criar meu burger!">
       </div>
     </form>
   </div>
@@ -41,7 +38,7 @@
 
 <script>
 export default {
-  name: "FormComponent",
+  name: "BurgerFormComponent",
   data() {
     return {
       paes: null,
@@ -51,7 +48,6 @@ export default {
       pao: null,
       carne: null,
       opcionais: [],
-      status: "Solicitado",
       msg: null
     }
   },
@@ -61,9 +57,31 @@ export default {
       const req = await fetch("http://localhost:3000/ingredientes");
       const data = await req.json();
 
-      this.paes = data.paes;
-      this.carnes = data.carnes;
-      this.opcionaisdata = data.opcionais;
+      this.paes = data.paes
+      this.carnes = data.carnes
+      this.opcionaisdata = data.opcionais
+    },
+    async createBurger(e) {
+      e.preventDefault();
+      const data = {
+        nome: this.nome,
+        carne: this.carne,
+        pao: this.pao,
+        opcionais: Array.from(this.opcionais),
+        status: "Solicitado"
+      }
+
+      const dataJson = JSON.stringify(data);
+
+      const req = await fetch("http://localhost:3000/burgers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: dataJson
+      })
+
+      const res = await req.json();
+
+      
     }
   },
   mounted() {
@@ -74,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-  #burger-form {
+  #burger-form-component {
     max-width: 400px;
     margin: 0 auto;
   }
