@@ -78,6 +78,8 @@ export default {
       this.status = dataStatus
     },
     async deleteBurger(id) {
+      let w = window.confirm("Você realmente deseja cancelar o pedido?");
+        if (w) {
       const req = await fetch(`http://localhost:3000/burgers/${id}`, {
         method: 'DELETE'
       });
@@ -88,6 +90,7 @@ export default {
         this.message = "";
       }, 3000);
       this.getPedidos()
+    }
     },
 
     async updateBurger(event, id) {
@@ -105,7 +108,7 @@ export default {
       });
       const res = await req.json()
 
-      this.message = `Pedido ${id} atualizado com sucesso!`;
+      this.message = `Pedido ${id} atualizado para ${res.status}!`;
       setTimeout(() => {
         this.message = "";
       }, 3000);
