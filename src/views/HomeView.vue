@@ -1,8 +1,11 @@
 <template>
+<div>
+  <BannerComponent/>
   <div class="main-container">
     <h1>Monte o seu burger</h1>
     <BurgerFormComponent/>
   </div>
+</div>
 </template>
 
 <script>
